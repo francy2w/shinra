@@ -1,0 +1,17 @@
+services:
+  - name: shinra-backend
+    region: ams
+    image: your-registry/shinra-backend:latest
+    env:
+      - name: DATABASE_URL
+        valueFrom:
+          secret: shinra_database_url
+      - name: JWT_SECRET
+        valueFrom:
+          secret: shinra_jwt_secret
+      - name: HMAC_SECRET
+        valueFrom:
+          secret: shinra_hmac_secret
+  - name: shinra-frontend
+    region: ams
+    image: your-registry/shinra-frontend:latest
