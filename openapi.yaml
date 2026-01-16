@@ -1,0 +1,20 @@
+openapi: "3.0.0"
+info:
+  title: Shinra API
+  version: "0.1.0"
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user
+  /api/auth/login:
+    post:
+      summary: Login
+  /api/keys/create:
+    post:
+      summary: Create license (admin)
+  /api/keys/activate:
+    post:
+      summary: Activate license
+  /api/keys/artifact/{name}:
+    get:
+      summary: Download signed artifact
