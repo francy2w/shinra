@@ -27,6 +27,5 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
-    "@types/pino": "^8.0.0"
   }
 }
