@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      String   @default("user") // 'user' or 'admin'
+  createdAt DateTime @default(now())
+  logs      Log[]
+  licenses  License[]
+}
+
+model License {
+  id           String   @id @default(uuid())
+  key          String   @unique
+  user         User?    @relation(fields: [userId], references: [id])
+  userId       String?
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime?
+  revoked      Boolean  @default(false)
+  fingerprint  String?  // hashed HWID / fingerprint (optional binding)
+  activations  Activation[]
+  meta         Json?
+}
+
+model Activation {
+  id         String   @id @default(uuid())
+  license    License  @relation(fields: [licenseId], references: [id])
+  licenseId  String
+  activatedAt DateTime @default(now())
+  ip         String?
+  userAgent  String?
+  fingerprint String?
+  note       String?
+}
+
+model Log {
+  id        String   @id @default(uuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  level     String
+  message   String
+  createdAt DateTime @default(now())
+}
